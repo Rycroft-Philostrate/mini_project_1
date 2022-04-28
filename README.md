@@ -1,7 +1,7 @@
 # Мини-проект на фрейворке Flask
 ## Ссылка на скачивания
 
-- [Папка homework11](https://github.com/Rycroft-Philostrate/Sky.pro.git)
+- [Мини-проект](https://github.com/Rycroft-Philostrate/mini_project_1.git)
 
 ## Ссылки на документацию инструментов
 
