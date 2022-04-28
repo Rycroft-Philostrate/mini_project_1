@@ -3,13 +3,13 @@ import json
 
 def get_posts_all():
 	"""Возврашает все посты"""
-	with open('data.json', encoding='utf-8') as file:
+	with open('data/data.json', encoding='utf-8') as file:
 		return json.load(file)
 
 
 def get_comments_all():
 	"""Возврашает все комментарии"""
-	with open('comments.json', encoding='utf-8') as file:
+	with open('data/comments.json', encoding='utf-8') as file:
 		return json.load(file)
 
 
@@ -19,22 +19,15 @@ def get_posts_by_user(user_name):
 	for post in get_posts_all():
 		if user_name.lower() == post['poster_name'].lower():
 			user_posts.append(post)
-	if not user_posts:
-		return ValueError
-	else:
-		return user_posts
+	return user_posts
 
 
 def get_comments_by_post_id(post_id):
 	"""Возврашает все комментарии поста по id"""
 	list_comments = []
-	list_id = [post['pk'] for post in get_posts_all()]
-	if post_id not in list_id:
-		return ValueError
-	else:
-		for comment in get_comments_all():
-			if post_id == comment['post_id']:
-				list_comments.append(comment)
+	for comment in get_comments_all():
+		if post_id == comment['post_id']:
+			list_comments.append(comment)
 	return list_comments
 
 
@@ -81,7 +74,7 @@ def find_tag(tagname):
 
 def get_bookmark():
 	"""Возвращает все закладки"""
-	with open('bookmarks.json', encoding='utf-8') as file:
+	with open('data/bookmarks.json', encoding='utf-8') as file:
 		return json.load(file)
 
 
@@ -89,7 +82,7 @@ def add_bookmark(post_id):
 	"""Запись данных поста в файл закладок"""
 	posts_bookmarks = get_bookmark()
 	list_id_bookmark = [pk['pk'] for pk in posts_bookmarks]  # список id постов в закладках
-	with open('bookmarks.json', 'w', encoding='utf-8') as file:
+	with open('data/bookmarks.json', 'w', encoding='utf-8') as file:
 		for post in get_posts_all():
 			if post_id == post['pk']:
 				if post_id in list_id_bookmark:  # если пост уже есть в закладках не добавляется повторно
@@ -102,7 +95,7 @@ def add_bookmark(post_id):
 def remove_bookmark(post_id):
 	"""Удаление постов из закладок"""
 	posts_bookmarks = get_bookmark()
-	with open('bookmarks.json', 'w', encoding='utf-8') as file:
+	with open('data/bookmarks.json', 'w', encoding='utf-8') as file:
 		for post in posts_bookmarks:
 			if post_id == post['pk']:
 				posts_bookmarks.remove(post)

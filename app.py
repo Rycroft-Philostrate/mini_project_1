@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from utils import *
-from err_app import err
-from api_app import api
+from errorhandler.errorhandler import err
+from api.api import api
 
 app = Flask(__name__)
 app.register_blueprint(err)

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, abort
+from flask import Blueprint, jsonify, abort, request
 from utils import get_posts_all, get_post_by_pk
 import logging
 
@@ -11,18 +11,21 @@ file_log.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] %(message)s
 logger.addHandler(file_log)
 
 
-@api.route('/api/posts', methods=['GET'])
+@api.route('/api/posts')
 def get_posts():
     """Возвращает список постов в виде JSON-списка"""
-    logger.info('Запрос /api/posts')
-    return jsonify(get_posts_all()), 200
+    posts = get_posts_all()
+    logger.info('Выполнен запрос /api/posts')
+    return jsonify(posts)
 
 
-@api.route('/api/posts/<int:post_id>', methods=['GET'])
-def get_post_id(post_id):
+@api.route('/api/posts/')
+def get_post_id():
     """Возвращает пост в виде JSON-словаря"""
-    logger.info(f'Запрос /api/posts/{post_id}')
-    post = get_post_by_pk(post_id)
+    s = request.args.get('s')
+    post = get_post_by_pk(s)
     if post == ValueError:
+        logger.error(f'Данных по запросу /api/posts/?s={s} не существет')
         abort(404)
-    return jsonify(get_post_by_pk(post_id))
+    logger.info(f'Запрос /api/posts/?s={s} выполнен успешно')
+    return jsonify(post)
