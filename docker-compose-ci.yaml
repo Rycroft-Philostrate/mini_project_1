@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  api:
+    image: smirnoffserg/flask-app:flask_app_ci
+    ports:
+      - "80:80"
