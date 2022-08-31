@@ -1,0 +1,10 @@
+[flake8]
+exclude =
+    __pycache__
+    venv
+    .env
+    logs
+    data
+ignore =
+    E501,
+    W191

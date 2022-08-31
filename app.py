@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
-from utils import *
+from utils import get_bookmark, get_post_by_pk, get_posts_all, get_posts_by_user, get_comments_by_post_id, \
+    search_for_posts, correct_word_comments, find_tag, add_bookmark, remove_bookmark
 from errorhandler.errorhandler import err
 from api.api import api
 

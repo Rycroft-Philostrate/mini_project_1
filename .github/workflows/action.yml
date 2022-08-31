@@ -1,8 +1,22 @@
 name: build and deploy flask project
 on: [push]
 jobs:
+  flake8:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: clone code
+        uses: actions/checkout@v2
+      - name: set up python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: flake8 lint
+        uses: py-actions/flake8@v2
+        with:
+          ignore: E501,W191
   build_and_push:
     runs-on: ubuntu-22.04
+    needs: flake8
     steps:
       - name: clone code
         uses: actions/checkout@v2
